@@ -1,4 +1,5 @@
 require "cribbage/version"
+require "cribbage/console"
 require 'awesome_print'
 
 module Cribbage
@@ -35,10 +36,6 @@ module Cribbage
       @index = INDEX.index(@face_value)
       @suit  = str[-1].upcase
       @card_str = str
-    end
-
-    def to_human_readable_format
-      "#{@value} of #{@suit}"
     end
 
     def to_s
