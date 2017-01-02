@@ -22,6 +22,7 @@ module Cribbage
     attr_accessor :index # index in a hand. Ie A = 0, 
 
     INDEX = %w(A 2 3 4 5 6 7 8 9 10 J Q K)
+    SUITS = {'H' => '♥', 'D' => '♦', 'C' => '♣', 'S' => '♠'}
 
     def initialize(str)
       raise "String cannot be blank!" if str.nil?
@@ -41,7 +42,7 @@ module Cribbage
     end
 
     def to_s
-      "#{@face_value}#{@suit}"
+      "[#{@face_value}#{SUITS[@suit]}]"
     end
 
      def compute_value(char)
@@ -100,26 +101,29 @@ module Cribbage
       #  Total Points: +17
       #  Fifteens (+8): (5 5 5), (5 J), (5 J), (5 K)
       #  Runs:
-
-      ap "#{starter_card} | #{players_cards.join(' ')}"
-      ap ""
-      ap "Total Points: #{total_score}"
+      #  
+      $stdout.printf "\n\n"
+      $stdout.printf "%-3s %-21s %-10s\n\n", '', 'Hand:', starter_card.to_s + "" + players_cards.join('')
 
       print_points :fifteens
       print_points :runs
       print_points :pairs
       print_points :flush
       print_points :nobs
-    end
 
+      $stdout.printf "\n%-3s %-10s %-10s\n", '', 'Total:', "+#{total_score}"
+
+      $stdout.printf "\n\n"
+    end
+        #
     def print_points(key)
       if @points[key].nil?
         return false
       end
       cards = @points[key.to_sym][:cards] # should be array of array
-      str = cards.map { |c| "[" + c.join(' ') + "]" }.join ", "
+      str = cards.map { |c| "" + c.join('') + "" }.join ", "
       title = key.to_s
-      ap "#{title} (+#{@points[key][:point_value]}): #{str}" 
+      $stdout.printf "%-3s %-10s %-10s %-10s\n", '', title, "+#{@points[key][:point_value]}", str
     end
 
     def print_cards(label, cards)

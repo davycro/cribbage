@@ -8,5 +8,7 @@ module Cribbage
       hand = Cribbage::Hand.new(cards)
       hand.print_score
     end
+
+    default_task :count
   end
 end

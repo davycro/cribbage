@@ -1,5 +1,4 @@
 - Add suit unicode
-- publish
 - DRY
 
 # Cribbage
