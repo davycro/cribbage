@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require 'cribbage/cli'
+Cribbage::CLI.start
